@@ -7,7 +7,7 @@ endif
 augroup unstack_sign_clear
   autocmd!
   autocmd TabEnter * call unstack#RemoveSignsFromClosedTabs()
-augroup end 
+augroup end
 "}}}
 "unstack#Unstack(selection_type) called by hotkeys {{{
 function! unstack#Unstack(selection_type)
@@ -113,7 +113,7 @@ function! unstack#GetSelectedText(selection_type)
 endfunction
 "}}}
 "unstack#ExtractFilesFromText(stacktrace) extract files and lines from a stacktrace {{{
-"return [[file1, line1], [file2, line2] ... ] from a stacktrace 
+"return [[file1, line1], [file2, line2] ... ] from a stacktrace
 "tries each extractor in order and stops when an extractor returns a non-empty
 "stack
 function! unstack#ExtractFilesFromText(text)
@@ -145,7 +145,7 @@ function! unstack#OpenStackTrace(files)
   set lazyredraw
   tabnew
   if (g:unstack_showsigns)
-    sign define errline text=>> linehl=Error texthl=Error
+    execute 'sign define errline text=>> linehl=' . g:unstack_sign_highlight_group . ' texthl=' . g:unstack_sign_highlight_group
     "sign ID's should be unique. If you open a stack trace with 5 levels,
     "you'd have to wait 5 seconds before opening another or risk signs
     "colliding.
@@ -188,7 +188,7 @@ function! unstack#GetOpenTabIds()
   let open_tab_ids = []
   tabdo if exists('t:unstack_tabId') | call add(open_tab_ids, string(t:unstack_tabId)) | endif
   "jump back to prev. tab
-  execute "tabnext" curTab 
+  execute "tabnext" curTab
   return open_tab_ids
 endfunction
 "}}}

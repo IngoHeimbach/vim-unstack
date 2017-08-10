@@ -40,9 +40,14 @@ if (!exists('g:unstack_vertical_alignment'))
   let g:unstack_vertical_alignment = "middle"
 endif
 
-"Whether or not to show signs on error lines (highlights them red)
+"Whether or not to show signs on error lines (highlights them red by default)
 if !exists('g:unstack_showsigns')
   let g:unstack_showsigns = 1
+endif "}}}
+"
+"Define the highlight group for unstack signs (Error by default)
+if !exists('g:unstack_sign_highlight_group')
+  let g:unstack_sign_highlight_group = 'Error'
 endif "}}}
 "Commands {{{
 command! -nargs=1 UnstackFromText call unstack#UnstackFromText(eval(<f-args>))
