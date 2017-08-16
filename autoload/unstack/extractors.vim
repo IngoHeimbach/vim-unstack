@@ -1,5 +1,5 @@
 "unstack#extractors#Regex(regex, file_replacement, line_replacement) constructs {{{
-"an extractor that uses regexes 
+"an extractor that uses regexes
 function! unstack#extractors#Regex(regex, file_replacement, line_replacement, ...)
   let extractor = {"regex": a:regex, "file_replacement": a:file_replacement,
         \ "line_replacement": a:line_replacement, "reverse": (a:0 > 0) ? a:1 : 0}
@@ -43,6 +43,8 @@ function! unstack#extractors#GetDefaults()
   call add(extractors, unstack#extractors#Regex('\v^.+\[\{file,"([^"]+)"\},\{line,([0-9]+)\}\]\}.*$', '\1', '\2'))
   " Valgrind
   call add(extractors, unstack#extractors#Regex('\v^\=\=\d+\=\=[ \t]*%(at|by).*\((.+):(\d+)\)$', '\1', '\2', 1))
+  " clang-tidy
+  call add(extractors, unstack#extractors#Regex('\v^([^:]+):([0-9]+):[0-9]+: %(error|warning|note): .+', '\1', '\2'))
   return extractors
 endfunction
 
