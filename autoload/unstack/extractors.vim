@@ -43,6 +43,8 @@ function! unstack#extractors#GetDefaults()
   call add(extractors, unstack#extractors#Regex('\v^.+\[\{file,"([^"]+)"\},\{line,([0-9]+)\}\]\}.*$', '\1', '\2'))
   " Valgrind
   call add(extractors, unstack#extractors#Regex('\v^\=\=\d+\=\=[ \t]*%(at|by).*\((.+):(\d+)\)$', '\1', '\2', 1))
+  " GDB / LLDB
+  call add(extractors, unstack#extractors#Regex('\v^[ *]*%(frame )?#\d+:? +0[xX][0-9a-fA-F]+ .+ at (.+):(\d+)', '\1', '\2', 1))
   " address sanitzer
   call add(extractors, unstack#extractors#Regex('\v^ *#\d+ 0[xX][0-9a-fA-F]+ in \w+ (.+):(\d+)', '\1', '\2', 1))
   " clang-tidy
