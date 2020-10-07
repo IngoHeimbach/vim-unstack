@@ -47,8 +47,8 @@ function! unstack#extractors#GetDefaults()
   call add(extractors, unstack#extractors#Regex('\v^[ *]*%(frame )?#\d+:? +0[xX][0-9a-fA-F]+ .+ at (.+):(\d+)', '\1', '\2', 1))
   " address sanitzer
   call add(extractors, unstack#extractors#Regex('\v^ *#\d+ 0[xX][0-9a-fA-F]+ in \w+ (.+):(\d+)', '\1', '\2', 1))
-  " clang-tidy
-  call add(extractors, unstack#extractors#Regex('\v^([^:]+):([0-9]+):[0-9]+: %(error|warning|note): .+', '\1', '\2'))
+  " Clang / GCC
+  call add(extractors, unstack#extractors#Regex('\v^%(In file included from | *from )?([^:]+):([0-9]+).+$', '\1', '\2'))
   return extractors
 endfunction
 
